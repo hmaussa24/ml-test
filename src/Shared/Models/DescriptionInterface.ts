@@ -1,4 +1,4 @@
 export interface IDescription{
-    titulo: String;
-    body: String;
+    titulo?: string;
+    body?: string;
 }

@@ -1,27 +1,69 @@
-import { useEffect } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import Description from "../Componets/DescriptionComponet"
 import DetailComponet from "../Componets/DetailComponet"
+import { useAppDispachs } from "../Redux/hooks/hooks"
+import { setBreadCrub } from "../Redux/slices/BreadCrumb.slice"
+import { ProductsDataApi } from "../Services/Api.service"
+import { IDetailProduct, IDescription } from "../Shared/Models/DetailProduct.model"
 
 const DetalleProducto = () => {
 
     const { id } = useParams();
+    const [product, setProduct] = useState<IDetailProduct>()
+    const [description, setDescription] = useState<IDescription>()
+
+    const dispatcher = useAppDispachs();
+
+    const getCategory = useCallback((id: string) => {
+        ProductsDataApi.getCategories(id)
+            .then(result => {
+                dispatcher(setBreadCrub(result.data.path_from_root))
+            })
+            .catch(error => {
+
+            })
+    }, [dispatcher])
+    const getProductDetail = useCallback((id: string) => {
+        ProductsDataApi.getProduct(id)
+            .then(result => {
+                setProduct(result.data)
+                getCategory(result.data.category_id)
+            })
+            .catch(error => {
+
+            })
+    }, [getCategory])
+
+    const getDescriptionProduct = (id: string) => {
+        ProductsDataApi.getDescription(id)
+            .then(result => {
+                setDescription(result.data)
+            })
+            .catch(error => {
+
+            })
+    }
+
 
     useEffect(() => {
-
-    }, [])
+        if (id) {
+            getProductDetail(id);
+            getDescriptionProduct(id)
+        }
+    }, [id, getProductDetail])
     return (
         <div className="bck--color7 contenedor-detalles">
             <div className="row">
                 <div className="col-8">
-                    <img className="image-product" src="https://http2.mlstatic.com/D_848039-MLA47150751310_082021-I.jpg" alt="D_848039-MLA47150751310_082021-I" />
+                    <img className="image-product" src={product?.pictures[0].url} alt={product?.id} />
                 </div>
                 <div className="col-4">
-                    <DetailComponet titulo="Deco Reverce Sombrero" subTitle="Nuevo- 234 Vendidos" price="12000" />
+                    <DetailComponet titulo={product?.title} subTitle={`${product?.condition} - ${product?.sold_quantity} Vendidos`} price="12000" />
                 </div>
             </div>
             <div className="description">
-                <Description titulo="Este es un titulo" body="Esta es una descripcion larga gruesa y mojosa Esta es una descripcion Esta es una descripcion larga gruesa y mojosa Esta es una descripcion Esta es una descripcion larga gruesa y mojosa Esta es una descripcion Esta es una descripcion larga gruesa y mojosa Esta es una descripcion larga gruesa y mojosa Esta es una descripcion larga gruesa y mojosa " />
+                <Description titulo={product?.title} body={description?.plain_text} />
             </div>
         </div>
     )

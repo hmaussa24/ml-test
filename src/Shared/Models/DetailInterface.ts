@@ -1,5 +1,5 @@
 export interface IDetail{
-    titulo: String;
-    price: String;
-    subTitle: String;
+    titulo?: string;
+    price?: string;
+    subTitle?: string;
 }

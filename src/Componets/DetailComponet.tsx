@@ -1,3 +1,4 @@
+import NumberFormat from "react-number-format";
 import { IDetail } from "../Shared/Models/DetailInterface";
 
 const DetailComponet = (props: IDetail) => {
@@ -11,7 +12,12 @@ const DetailComponet = (props: IDetail) => {
                 {titulo}
             </div>
             <div className="text--size-46 mg--button-32">
-                $ {price}
+                <NumberFormat 
+                 value={price}
+                 prefix={"$"}
+                 displayType={'text'}
+                 thousandSeparator={true}
+                />
             </div>
             <div>
             <button type="button" className="btn btn-primary boton">Comprar</button>
