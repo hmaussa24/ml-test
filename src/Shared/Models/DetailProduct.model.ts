@@ -1,4 +1,4 @@
-export interface IDetailProduct {
+export interface IDetailProduct  {
     id: string;
     title: string;
     price: number;
@@ -7,6 +7,33 @@ export interface IDetailProduct {
     condition: string;
     sold_quantity: number;
     category_id: string;
+    shipping: {
+        free_shipping: boolean;
+    }
+    address?:{
+        city_name: string;
+    }
+}
+
+export interface  IBreadCrumSearch{
+    filters: [
+        {
+            values: [
+                {
+                    path_from_root: IPathFromRoot[]
+                }
+            ]
+        }
+    ]
+}
+
+export interface ISearch extends IBreadCrumSearch{
+    results: IDetailProduct[];
+    
+}
+export interface ISearchComponent{
+    results: IDetailProduct[];
+    
 }
 
 interface pictures {

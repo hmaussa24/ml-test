@@ -101,6 +101,19 @@
 
 .image-product{
     width: 680px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+
+.title-search{
+    width: 300px;
+}
+
+.title-search:hover{
+    text-decoration: underline;
 }
 
 .description{
@@ -124,6 +137,10 @@
 .img-result{
     width: 180px;
     height: 180px;
+}
+
+.cp{
+    cursor: pointer;
 }
 
 .breadcrumb-item+.breadcrumb-item::before{content:var(--bs-breadcrumb-divider,">") !important ;}

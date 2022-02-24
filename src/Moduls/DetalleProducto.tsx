@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import Description from "../Componets/DescriptionComponet"
 import DetailComponet from "../Componets/DetailComponet"
 import { useAppDispachs } from "../Redux/hooks/hooks"
@@ -12,6 +12,7 @@ const DetalleProducto = () => {
     const { id } = useParams();
     const [product, setProduct] = useState<IDetailProduct>()
     const [description, setDescription] = useState<IDescription>()
+    const history = useNavigate();
 
     const dispatcher = useAppDispachs();
 
@@ -21,7 +22,7 @@ const DetalleProducto = () => {
                 dispatcher(setBreadCrub(result.data.path_from_root))
             })
             .catch(error => {
-
+               
             })
     }, [dispatcher])
     const getProductDetail = useCallback((id: string) => {
@@ -31,9 +32,10 @@ const DetalleProducto = () => {
                 getCategory(result.data.category_id)
             })
             .catch(error => {
+                history("NotFoud")
 
             })
-    }, [getCategory])
+    }, [getCategory, history])
 
     const getDescriptionProduct = (id: string) => {
         ProductsDataApi.getDescription(id)
@@ -55,8 +57,8 @@ const DetalleProducto = () => {
     return (
         <div className="bck--color7 contenedor-detalles">
             <div className="row">
-                <div className="col-8">
-                    <img className="image-product" src={product?.pictures[0].url} alt={product?.id} />
+                <div className="col-8 image-product">
+                    <img className="mg--top-32" src={product?.pictures[0].url} alt={product?.id} />
                 </div>
                 <div className="col-4">
                     <DetailComponet titulo={product?.title} subTitle={`${product?.condition} - ${product?.sold_quantity} Vendidos`} price={product?.price} />
