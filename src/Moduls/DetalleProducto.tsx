@@ -59,7 +59,7 @@ const DetalleProducto = () => {
                     <img className="image-product" src={product?.pictures[0].url} alt={product?.id} />
                 </div>
                 <div className="col-4">
-                    <DetailComponet titulo={product?.title} subTitle={`${product?.condition} - ${product?.sold_quantity} Vendidos`} price="12000" />
+                    <DetailComponet titulo={product?.title} subTitle={`${product?.condition} - ${product?.sold_quantity} Vendidos`} price={product?.price} />
                 </div>
             </div>
             <div className="description">
