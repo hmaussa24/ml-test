@@ -9,5 +9,7 @@ test("render detail componet", () => {
         titulo: "Phone",
     }
     const view = render(<DetailComponet price={detail.price} titulo={detail.titulo}/>)
+    const boton =  view.container.querySelector("button")
+    expect(boton).toBeInTheDocument()
     expect(view.container).toHaveTextContent("Phone")
 })
