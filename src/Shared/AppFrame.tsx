@@ -50,7 +50,7 @@ export default function AppFrame(props: Props) {
     <>
       <Navbar expand="lg" className='bck--color1'>
         <Container  >
-          <Navbar.Brand >
+          <Navbar.Brand className='cp'>
               <img src={logo} alt="ml-logo" onClick={cleanBreadCrumb} />
           </Navbar.Brand>
           <InputGroup className="mb-2">
