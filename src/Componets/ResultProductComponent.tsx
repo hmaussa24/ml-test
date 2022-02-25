@@ -7,7 +7,7 @@ const ResulProductComponet = (props: ISearchComponent) => {
     return (
         <div>
             {props.results.map(result => (
-                <div className="p--32">
+                <div className="p--32" key={result.id}>
                     <div className="row">
                         <div className="col-2">
                             <img className="img-result contenedor-detalles cp" src={result.thumbnail} alt={result.id} onClick={() => navigate(`/items/${result.id}`)}/>
@@ -22,7 +22,7 @@ const ResulProductComponet = (props: ISearchComponent) => {
                                             displayType={'text'}
                                             thousandSeparator={true}
                                         />
-                                        { result.shipping.free_shipping ?? <img className="mg--left-32" src={ic_shipping} alt="icon" />}
+                                        { result.shipping.free_shipping ? <img className="mg--left-32" src={ic_shipping} alt="envio gratis" /> : null}
                                     </div>
                                 </div>
                             </div>

@@ -144,3 +144,13 @@
 }
 
 .breadcrumb-item+.breadcrumb-item::before{content:var(--bs-breadcrumb-divider,">") !important ;}
+
+.breadcrumb-item a {
+    color: $color-4;
+    text-decoration: none;
+}
+.breadcrumb-item a:hover {
+    color: $color-4;
+    text-decoration: none;
+}
+
